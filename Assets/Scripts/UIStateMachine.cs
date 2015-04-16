@@ -31,8 +31,8 @@ public class UIStateMachine : MonoBehaviour {
     }
 
     private void ValidateStateMachine() {
-        if (_uiStack != null) _uiStack = new Stack<UIState>();
-        if (_uiStates != null) _uiStates = new Dictionary<int, UIState>();
+        if (_uiStack == null) _uiStack = new Stack<UIState>();
+        if (_uiStates == null) _uiStates = new Dictionary<int, UIState>();
     }
     #endregion Private State Methods
 
@@ -119,6 +119,13 @@ public class UIStateMachine : MonoBehaviour {
 
     public void AddState(UIState state) {
         ValidateStateMachine();
+        if (state == null) {
+            Debug.LogWarning(string.Format(
+                "[{0}]: Adding null state to UIStateMachine.",
+                this.gameObject.name));
+            return;
+        }
+
         if (!_uiStates.ContainsKey(state.StateId)) {
             _uiStates.Add(state.StateId, state);
         }
