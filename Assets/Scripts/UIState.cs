@@ -19,6 +19,20 @@ public abstract class UIState : MonoBehaviour {
     }
 
     /// <summary>
+    /// Gets if the UIState is currently focused by the controlling UIStateMachine
+    /// </summary>
+    public bool IsFocused {
+        get {
+            if (_stateMachine != null) {
+                if (_stateMachine.PeekState() == this) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Get the name of the UIState
     /// </summary>
     public virtual string GetStateName() {
